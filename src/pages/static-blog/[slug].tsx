@@ -1,15 +1,18 @@
 import React from "react"
 import { POST_QUERY } from "graphql/queries/post-query"
-import { GetPostQuery } from "generated/graphql"
+import { GetPostQuery, GetPostsQuery } from "generated/graphql"
 import { Container, Heading, VStack } from "@chakra-ui/react"
 import { client } from "shared/apollo"
-import { createGetServerSideProps } from "shared/server"
+import { GetStaticPathsResult, GetStaticPropsContext } from "next"
+import { POSTS_QUERY } from "graphql/queries/posts-query"
 
-export const getServerSideProps = createGetServerSideProps(async (ctx) => {
+export const getStaticProps = async (ctx: GetStaticPropsContext) => {
+  const slug = ctx.params?.slug
+
   const { data } = await client.query({
     query: POST_QUERY,
     variables: {
-      slug: ctx.query.slug,
+      slug,
     },
   })
 
@@ -22,7 +25,20 @@ export const getServerSideProps = createGetServerSideProps(async (ctx) => {
   return {
     props: { data },
   }
-})
+}
+
+export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
+  const {
+    data: { posts },
+  } = await client.query<GetPostsQuery>({
+    query: POSTS_QUERY,
+  })
+
+  return {
+    fallback: false,
+    paths: posts.map((post) => ({ params: { slug: post.slug } })),
+  }
+}
 
 type Props = {
   data: GetPostQuery

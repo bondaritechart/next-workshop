@@ -2,18 +2,20 @@ import React from "react"
 import { Box, Heading, Image, WrapItem } from "@chakra-ui/react"
 import { CorePostFieldsFragment } from "generated/graphql"
 import Link from "next/link"
-import { Routes } from "shared/routes"
+import { useRouter } from "next/router"
 
 type Props = {
   post: CorePostFieldsFragment
 }
 
 const ArticleItem = ({ post }: Props) => {
+  const router = useRouter()
+
   return (
     <WrapItem width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
       <Box w="100%">
         <Box borderRadius="lg" overflow="hidden">
-          <Link href={`${Routes.BLOG}/${post.slug}`} passHref>
+          <Link href={`${router.pathname}/${post.slug}`} passHref>
             <a>
               <Image
                 transform="scale(1.0)"
@@ -31,7 +33,7 @@ const ArticleItem = ({ post }: Props) => {
           </Link>
         </Box>
         <Heading fontSize="xl" marginTop="2">
-          <Link href={`${Routes.BLOG}/${post.slug}`}>{post.title}</Link>
+          <Link href={`${router.pathname}/${post.slug}`}>{post.title}</Link>
         </Heading>
       </Box>
     </WrapItem>

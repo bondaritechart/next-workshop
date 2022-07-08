@@ -5,6 +5,9 @@ const nextConfig = {
     domains: ["images.pexels.com"],
   },
   swcMinify: true,
+  experimental: {
+    reactMode: "concurrent",
+  },
 }
 
 module.exports = nextConfig

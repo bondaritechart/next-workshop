@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client"
 import { client } from "shared/apollo"
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log("pageProps", pageProps)
   return (
     <ApolloProvider client={client}>
       <ChakraProvider>

@@ -9,8 +9,8 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react"
-import { HamburgerIcon, CloseIcon, ChevronRightIcon } from "@chakra-ui/icons"
-import { Routes } from "../shared/routes"
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
+import { Routes } from "shared/routes"
 import Link from "next/link"
 import { Logo } from "./Logo"
 
@@ -158,5 +158,9 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Blog",
     href: Routes.BLOG,
+  },
+  {
+    label: "Static Blog",
+    href: Routes.STATIC_BLOG,
   },
 ]

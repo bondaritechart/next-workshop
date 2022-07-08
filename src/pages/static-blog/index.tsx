@@ -4,9 +4,8 @@ import ArticleList from "components/pages/blog/ArticleList"
 import { POSTS_QUERY } from "graphql/queries/posts-query"
 import { client } from "shared/apollo"
 import { GetPostsQuery } from "generated/graphql"
-import { createGetServerSideProps } from "shared/server"
 
-export const getServerSideProps = createGetServerSideProps(async () => {
+export const getStaticProps = async () => {
   const { data } = await client.query({
     query: POSTS_QUERY,
   })
@@ -16,7 +15,7 @@ export const getServerSideProps = createGetServerSideProps(async () => {
       data,
     },
   }
-})
+}
 
 type Props = {
   data: GetPostsQuery
@@ -25,7 +24,7 @@ type Props = {
 const Blog = ({ data }: Props) => {
   return (
     <Container maxW={"6xl"}>
-      <Heading as={"h1"}>Server Side Blog</Heading>
+      <Heading as={"h1"}>Static Blog</Heading>
       <ArticleList posts={data.posts} />
     </Container>
   )
