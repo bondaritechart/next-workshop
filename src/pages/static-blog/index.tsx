@@ -10,6 +10,8 @@ export const getStaticProps = async () => {
     query: POSTS_QUERY,
   })
 
+  console.log("getStaticProps call [static blog]")
+
   return {
     props: {
       data,

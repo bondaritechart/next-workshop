@@ -16,6 +16,8 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
     },
   })
 
+  console.log("getStaticProps call [static blog slug]")
+
   if (!data.post) {
     return {
       notFound: true,
@@ -33,6 +35,7 @@ export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
   } = await client.query<GetPostsQuery>({
     query: POSTS_QUERY,
   })
+  console.log("getStaticPaths call")
 
   return {
     fallback: false,

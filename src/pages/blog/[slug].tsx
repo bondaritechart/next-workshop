@@ -12,6 +12,7 @@ export const getServerSideProps = createGetServerSideProps(async (ctx) => {
       slug: ctx.query.slug,
     },
   })
+  console.log("getServerSideProps call slug")
 
   if (!data.post) {
     return {

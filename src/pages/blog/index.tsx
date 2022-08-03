@@ -10,6 +10,7 @@ export const getServerSideProps = createGetServerSideProps(async () => {
   const { data } = await client.query({
     query: POSTS_QUERY,
   })
+  console.log("getServerSideProps call")
 
   return {
     props: {
