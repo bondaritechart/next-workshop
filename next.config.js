@@ -8,6 +8,15 @@ const nextConfig = {
   experimental: {
     reactMode: "concurrent",
   },
+  async redirects() {
+    return [
+      {
+        source: "/blog",
+        destination: "/static-blog",
+        permanent: false,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

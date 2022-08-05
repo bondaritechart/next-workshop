@@ -13,9 +13,11 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import { Routes } from "shared/routes"
 import Link from "next/link"
 import { Logo } from "./Logo"
+import { signOut, useSession } from "next-auth/react"
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
+  const session = useSession()
 
   return (
     <Box>
@@ -50,25 +52,31 @@ export default function WithSubnavigation() {
           </Flex>
         </Flex>
 
-        <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-          <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={"#"}>
-            Sign In
+        {session.status === "authenticated" ? (
+          <Button fontSize={"sm"} fontWeight={400} variant={"link"} onClick={() => signOut()}>
+            Sign Out
           </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            as={"a"}
-            href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-          >
-            Sign Up
-          </Button>
-        </Stack>
+        ) : session.status === "unauthenticated" ? (
+          <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
+            <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={Routes.SIGN_IN}>
+              Sign In
+            </Button>
+            <Button
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={"pink.400"}
+              as={"a"}
+              href={"#"}
+              _hover={{
+                bg: "pink.300",
+              }}
+            >
+              Sign Up
+            </Button>
+          </Stack>
+        ) : null}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

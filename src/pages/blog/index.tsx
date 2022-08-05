@@ -9,6 +9,7 @@ import { createGetServerSideProps } from "shared/server"
 export const getServerSideProps = createGetServerSideProps(async () => {
   const { data } = await client.query({
     query: POSTS_QUERY,
+    fetchPolicy: "network-only",
   })
   console.log("getServerSideProps call")
 
